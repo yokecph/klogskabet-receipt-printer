@@ -1,0 +1,23 @@
+{
+  "name": "klogskabet-receipt-printer",
+  "version": "1.0.0",
+  "description": "Node.js app for the Raspberry Pi-driven receipt printer in Klogskabet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yokecph/klogskabet-receipt-printer.git"
+  },
+  "author": "YOKE ApS",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/yokecph/klogskabet-receipt-printer/issues"
+  },
+  "homepage": "https://github.com/yokecph/klogskabet-receipt-printer#readme",
+  "dependencies": {
+    "node-thermal-printer": "^2.0.0",
+    "printer": "^0.2.2"
+  }
+}
