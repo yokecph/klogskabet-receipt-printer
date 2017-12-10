@@ -29,14 +29,14 @@ The version number in `package.json` should be bumped for new releases (and `npm
 
 - Trying to print without the printer connected is reported as success, since the print job is queued. But it doesn't start back up when the printer's connected later. This is more likely CUPS's behavior than this code's, but something to be aware of.
 
-- Printing an image is slow and "stuttering", which doesn't seem like 
+- Printing an image is slow and "stuttering", but it feels like it could print faster. Unsure what the cause is, and if it's avoidable.
 
 ### Roadmap
 - Trigger printing on Raspberry Pi GPIO button-push (see, for instance, [this npm package](https://github.com/fivdi/onoff))
 
 - Download file/content to print from CMS.
 
-- Print a file using `lp` instead of `node-thermal-printer` for better rasterization and automatic scaling?
+- Print a file using `lp` instead of `node-thermal-printer` for better rasterization and automatic scaling? `lp -d <printer name> <file>` works fine it seems, but may may require extra work to handle errors, timeouts, and whether the printer is busy etc..
 
 - Register as a service to have it start automatically on boot.
 
