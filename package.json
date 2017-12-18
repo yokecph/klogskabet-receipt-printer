@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yokecph/klogskabet-receipt-printer#readme",
   "dependencies": {
     "node-thermal-printer": "^2.0.0",
+    "onoff": "^1.1.8",
     "printer": "^0.2.2"
   }
 }
