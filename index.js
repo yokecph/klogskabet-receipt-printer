@@ -45,11 +45,16 @@ const print = (function () {
   }
 }());
 
+// print((err) => {
+//   if (err) {
+//     console.error('Print failed:', err);
+//   } else {
+//     console.log('Print done');
+//   }
+// });
 
-print((err) => {
-  if (err) {
-    console.error('Print failed:', err);
-  } else {
-    console.log('Print done');
-  }
-});
+const Button = require('./lib/button.js');
+
+const printButton = new Button(17);
+
+printButton.on('press', print);
