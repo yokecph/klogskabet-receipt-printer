@@ -5,7 +5,7 @@ printer.init({
   'type': 'epson',
 
   // The character set doesn't matter *too* much, but for good measure, we set
-  // it to DENMARK2, so the base charset includes some æ, ø, å stuff.
+  // it to DENMARK2, so the base charset includes some Danish letter stuff.
   // The differences between the charsets can be seen here:
   // https://reference.epson-biz.com/modules/ref_charcode_en/index.php?content_id=3
   'characterSet': 'DENMARK2',
@@ -29,8 +29,8 @@ const print = (function () {
     // Print something
     printer.println('Hello, world');
 
-    // Print an image
-    printer.printImage(__dirname + '/tmp/test.png', (done) => {
+    // Print an image (it should be 550px wide)
+    printer.printImage(__dirname + '/receipt.png', (done) => {
       // TODO: What if done is false...?
 
       // Activate the cutter, but leave the printed slip loosely attached
@@ -45,16 +45,12 @@ const print = (function () {
   }
 }());
 
-// print((err) => {
-//   if (err) {
-//     console.error('Print failed:', err);
-//   } else {
-//     console.log('Print done');
-//   }
-// });
-
 const Button = require('./lib/button.js');
 
 const printButton = new Button(17);
 
-printButton.on('press', print);
+printButton.on('press', function () {
+  print(function (err) {
+    if (err) console.error(err);
+  });
+});
