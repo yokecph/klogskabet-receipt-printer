@@ -1,8 +1,20 @@
+// set up the LED
+const Led = require('./lib/led.js');
+const statusLed = new Led(26);
+
+statusLed.on();
+
+// ===================================
+
 // Set up the printer
 const printer = require('./lib/printer.js');
 
 printer.on('ready', function () {
-  // console.log('ready');
+  statusLed.off();
+});
+
+printer.on('printing', function () {
+  statusLed.on();
 });
 
 printer.on('error', function (err) {
@@ -11,6 +23,8 @@ printer.on('error', function (err) {
 
 printer.init();
 
+// ===================================
+
 // set up the button
 const Button = require('./lib/button.js');
 const printButton = new Button(17);
@@ -18,3 +32,4 @@ const printButton = new Button(17);
 printButton.on('press', function () {
   printer.print();
 });
+
