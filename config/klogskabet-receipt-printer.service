@@ -1,0 +1,30 @@
+[Unit]
+Description=Klogskabet Receipt Printer
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/home/deployer/klogskabet-receipt-printer
+
+# Ensure the log file exists
+ExecStartPre=/usr/bin/touch /home/pi/klogskabet-receipt-printer/log/node.log
+
+# Run the service in a shell so its io can be redirected (systemd doesn't allow
+# this, which is such bullshit)
+ExecStart=/bin/sh -c 'sudo nodejs index.js 2>&1 >> log/node.log'
+
+Restart=always
+
+# Restart service after 10 seconds if node service crashes
+RestartSec=10
+
+# Output to syslog (default)
+# Not much will end up here, since IO is redirected but to view it, do this
+#   $ sudo journalctl -u klogskabet-receipt-printer
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=klogskabet-receipt-printer
+
+[Install]
+WantedBy=multi-user.target
