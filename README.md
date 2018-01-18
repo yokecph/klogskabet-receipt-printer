@@ -13,31 +13,22 @@ The code specifically targets/has been tested with a Raspberry Pi 3 running Rasp
 - CUPS and the [epsonsimplecups PPD](https://github.com/plinth666/epsonsimplecups)
 
 ## Overview
-The app is entirely contained in the `index.js` file as it's rather simple.
+The code currently does a couple of simple things:
 
-This is a very early version, that doesn't do a whole lot.
+1. It listens for a button being pressed
+2. When the button is pressed, it prints an image
 
-The code currently does _one single thing_: It prints an image on the printer, and exits. That's it.
+That's it.
 
-The image that's printed is whatever's in `tmp/test.png`. The image should be no wider than roughly 580px to fit on the printer's 80mm paper.
+The image that's printed is whatever's in `<path to app dir>/receipt.png`. The image should be no wider than roughly 580px to fit on the printer's 80mm paper; 550px seems like a good size.
 
 ## Development
 The version number in `package.json` should be bumped for new releases (and `npm install` should be run to update `package-lock.json` before committing!).
 
 ### Known issues
-- Printing just text does not work reliably. It seems as if there's a buffer that must be saturated before anything happens, but even then the text is only printed once and sometimes garbled. The callback never reports failure, though. (Possible fix: Just send things to the `lp` command, see below.)
-
 - Trying to print without the printer connected is reported as success, since the print job is queued. But it doesn't start back up when the printer's connected later. This is more likely CUPS's behavior than this code's, but something to be aware of.
 
-- Printing an image is slow and "stuttering", but it feels like it could print faster. Unsure what the cause is, and if it's avoidable.
-
 ### Roadmap
-- Trigger printing on Raspberry Pi GPIO button-push (see, for instance, [this npm package](https://github.com/fivdi/onoff))
-
-- Download file/content to print from CMS.
-
-- Print a file using `lp` instead of `node-thermal-printer` for better rasterization and automatic scaling? `lp -d <printer name> <file>` works fine it seems, but may may require extra work to handle errors, timeouts, and whether the printer is busy etc..
-
 - Register as a service to have it start automatically on boot.
 
 - Host app in `forever.js`?
