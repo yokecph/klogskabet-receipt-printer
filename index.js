@@ -1,56 +1,17 @@
 // Set up the printer
-const printer = require('node-thermal-printer');
-printer.init({
-  // Yes, it's an Epson-brand printer...
-  'type': 'epson',
+const printer = require('./lib/printer.js');
 
-  // The character set doesn't matter *too* much, but for good measure, we set
-  // it to DENMARK2, so the base charset includes some Danish letter stuff.
-  // The differences between the charsets can be seen here:
-  // https://reference.epson-biz.com/modules/ref_charcode_en/index.php?content_id=3
-  'characterSet': 'DENMARK2',
+printer.on('spooling', _ => console.log('spooling'));
+printer.on('ready', _ => console.log('ready'));
+printer.on('printing', _ => console.log('ready'));
+printer.on('error', (desc) => console.log('error:', desc));
 
-  // This relies on the printer having been set up in CUPS with this exact name
-  'interface': 'printer:EPSON_TM-T20II'
-});
+printer.init();
 
-const print = (function () {
-  var printing = false;
-
-  return function (callback) {
-    if (printing) {
-      callback('Printer busy'); // TODO: Better errors, pls
-      return;
-    }
-
-    // Do some layout
-    printer.alignCenter();
-
-    // Print something
-    printer.println('Hello, world');
-
-    // Print an image (it should be 550px wide)
-    printer.printImage(__dirname + '/receipt.png', (done) => {
-      // TODO: What if done is false...?
-
-      // Activate the cutter, but leave the printed slip loosely attached
-      printer.partialCut();
-
-      // Execute buffered commands
-      printer.execute((err) => {
-        printing = false;
-        callback(err);
-      });
-    });
-  }
-}());
 
 const Button = require('./lib/button.js');
-
 const printButton = new Button(17);
 
 printButton.on('press', function () {
-  print(function (err) {
-    if (err) console.error(err);
-  });
+  printer.print();
 });
