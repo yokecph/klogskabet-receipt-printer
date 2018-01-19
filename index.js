@@ -24,7 +24,11 @@ process.on('exit', _ => statusLed.off());
     `'${__dirname + '/tmp/graphic.png'}'` // output file
   ].join(' ');
 
-  execSync(cmd)
+  try {
+    execSync(cmd);
+  } catch(err) {
+    console.error(String(err));
+  }
 }());
 
 // ===================================
