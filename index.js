@@ -10,6 +10,25 @@ process.on('exit', _ => statusLed.off());
 
 // ===================================
 
+// Ensure graphic exists and do any necessary conversions
+(function () {
+  const execSync = require('child_process').execSync;
+
+  const cmd = [
+    'convert',                            // imagemagick's convert
+    `'${__dirname + '/receipt.png'}'`,    // input file
+    '-resize "550>"',                     // scale image if wider than 550px
+    '-rotate 180',                        // rotate so it comes out of the printer right-side-up
+    '-background white',                  // add a white background
+    '-alpha remove',                      // remove alpha channel
+    `'${__dirname + '/tmp/graphic.png'}'` // output file
+  ].join(' ');
+
+  execSync(cmd)
+}());
+
+// ===================================
+
 // Set up the printer
 const printer = require('./lib/printer.js');
 
