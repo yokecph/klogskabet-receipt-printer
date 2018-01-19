@@ -1,6 +1,7 @@
 # Ignore generated files
 node_modules
 tmp
+!tmp/.keep
 devicetree/*.dtbo
 log/*
 !log/.keep
