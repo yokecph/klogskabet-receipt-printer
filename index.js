@@ -1,8 +1,12 @@
+// whether or not to respond to button presses
+var canPrint = false;
+
 // set up the LED
 const Led = require('./lib/led.js');
 const statusLed = new Led(26);
 
-statusLed.on();
+statusLed.blink();
+process.on('exit', _ => statusLed.off());
 
 // ===================================
 
@@ -10,11 +14,16 @@ statusLed.on();
 const printer = require('./lib/printer.js');
 
 printer.on('ready', function () {
-  statusLed.off();
+  statusLed.blink();
+
+  setTimeout(_ => {
+    statusLed.on();
+    canPrint = true;
+  }, 3000);
 });
 
 printer.on('printing', function () {
-  statusLed.on();
+  // ...
 });
 
 printer.on('error', function (err) {
@@ -30,6 +39,9 @@ const Button = require('./lib/button.js');
 const printButton = new Button(17);
 
 printButton.on('press', function () {
+  console.log(printer.activeJobCount);
+  if (!canPrint) return;
+  canPrint = false;
   printer.print();
 });
 
