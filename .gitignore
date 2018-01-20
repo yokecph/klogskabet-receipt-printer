@@ -7,3 +7,6 @@
 
 /log/*
 !/log/.keep
+
+# Ignore local config
+/receipt.png
