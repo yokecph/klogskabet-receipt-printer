@@ -34,6 +34,7 @@ process.on('exit', _ => statusLed.off());
 // ===================================
 
 // Set up the printer
+const counter = require('./lib/counter.js');
 const printer = require('./lib/printer.js');
 
 printer.on('ready', function () {
@@ -46,7 +47,8 @@ printer.on('ready', function () {
 });
 
 printer.on('printing', function () {
-  // ...
+  console.log(`${(new Date()).toISOString()}: Printing #${counter.getCount()}...`);
+  counter.increment();
 });
 
 printer.on('error', function (err) {
@@ -62,7 +64,6 @@ const Button = require('./lib/button.js');
 const printButton = new Button(17);
 
 printButton.on('press', function () {
-  console.log(printer.activeJobCount);
   if (!canPrint) return;
   canPrint = false;
   printer.print();
