@@ -17,7 +17,12 @@ process.on('exit', _ => statusLed.off());
 // (intentionally kept synchronous/blocking so the image can be prepared
 // before printer is init'ed)
 (function () {
+  const fs = require('fs');
   const execSync = require('child_process').execSync;
+
+  if (fs.existsSync(`${__dirname + '/tmp/graphic.png'}`)) {
+    fs.unlinkSync(`${__dirname + '/tmp/graphic.png'}`);
+  }
 
   const cmd = [
     'convert',                            // imagemagick's convert
