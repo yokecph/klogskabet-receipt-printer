@@ -1,3 +1,12 @@
 # Ignore generated files
-node_modules
-tmp
+/node_modules
+/devicetree/*.dtbo
+
+/tmp/*
+!/tmp/.keep
+
+/log/*
+!/log/.keep
+
+# Ignore local config
+/receipt.png
