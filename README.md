@@ -1,5 +1,5 @@
 # Klogskabet - Receipt printer
-©2017 YOKE ApS. All rights reserved.
+©2017 YOKE ApS. GPLv3 licensed.
 
 ## Description
 This is a minimal Node.js app for the Klogskabet project, which can print a receipt on an connected thermal printer (i.e. receipt printer).
@@ -116,3 +116,6 @@ Adhere to the `git-flow` model: `master` is for stable and versioned releases, `
 ## Version history
 ### 1.0.0
 Initial release.
+
+# License
+See `COPYING`.
