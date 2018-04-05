@@ -46,7 +46,7 @@ Make the `pi` user a CUPS admin and enable the web UI:
 
     $ sudo usermod -a -G lpadmin pi
     $ sudo cupsctl --remote-admin
-    $ sudo service restart cups
+    $ sudo service cups restart
 
 Now go to `https://<IP address of Raspberry Pi>:631/admin` from a browser on the network (you'll get an SSL warning, but continue anyway). If/when you're asked to log in, log in as `pi` with the password for the `pi` user.
 
@@ -54,7 +54,7 @@ Make sure the printer is connected via USB and switched on. When you press "Add 
 
 Choose it, and click "Continue". Name the printer `EPSON_TM-T20II` (this is what the code expects it to be called), and optionally fill in the description and location.
 
-On the next screen, choose the `Epson TM-T20` PPD in the list, and click "Add printer". For the default options, you'll want to set "Media size" to "80mm x 100mm" and click "Set Default Options" to save the setting.
+On the next screen, choose the `Epson TM-T20 (en)` PPD in the list, and click "Add printer". For the default options, you'll want to set "Media size" to "80mm x 100mm" and click "Set Default Options" to save the setting.
 
 Download or clone this source code, and cd into the `/home/pi/klogskabet-receipt-printer` directory (if you've downloaded a .zip from GitHub, you may have to rename the directory to get rid of the branch name).
 
@@ -80,7 +80,7 @@ Test the setup by issuing:
 
     $ cd klogskabet-receipt-printer && sudo node index.js
 
-The module should print the default receipt when you press the button (once the app's started up).
+The module should print the default receipt when you press the button (once the app's started up). It will log some warnings because it can't find a custom receipt image, but it should still print the default receipt graphic.
 
 Provided everything works, perform these final two steps to make the app start automatically and manage log files:
 
